@@ -11,35 +11,33 @@ export default class CameraGallery extends React.Component {
     photograph = null;
 
     state = {
-        imgmap: [], /*image tab*/
+        cameraperm: null, /*Perm status */
         statusdetect: null, 
         phototype: Camera.Constants.Type.back,/*Face or Back */
-        cameraperm: null, /*Perm status */
+        imgmap: [], /*image tab*/
     };
-    setCameraType = (phototype) => this.setState({ phototype }); /*modifing phototype state*/
-    photoin = () => this.setState({ statusdetect: true });/*modifing imgmap status state*/
-
-    photoout = () => {
-        if (this.state.statusdetect)
-            this.photograph.stopRecording(); /*Stoping record detect*/
-    };
-
-    photoshort = async () => {
-        const datap = await this.photograph.takePictureAsync();
-        this.setState({ statusdetect: false, imgmap: [datap, ...this.state.imgmap] }) /*Photo capture detect*/
-    };
-
-    videoin = async () => {
-        const datav = await this.photograph.recordAsync();
-        this.setState({ statusdetect: false, imgmap: [datav, ...this.state.imgmap] }); /*Video capture detect*/
-    };
-
+    
     async componentDidMount() {
         const photograph = await Permissions.askAsync(Permissions.CAMERA);/*Camera perm*/
         const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);/*Microphone perm*/
         const cameraperm = (photograph.status === 'granted' && audio.status === 'granted');
 
         this.setState({ cameraperm }); /*Device Camera and Mic permissions*/
+    };
+    
+    setCameraType = (phototype) => this.setState({ phototype }); /*modifing phototype state*/
+    photoshort = async () => {
+        const datap = await this.photograph.takePictureAsync();
+        this.setState({ statusdetect: false, imgmap: [datap, ...this.state.imgmap] }) /*Photo capture detect*/
+    };
+    videoin = async () => {
+        const datav = await this.photograph.recordAsync();
+        this.setState({ statusdetect: false, imgmap: [datav, ...this.state.imgmap] }); /*Video capture detect*/
+    };
+    photoin = () => this.setState({ statusdetect: true });/*modifing imgmap status state*/
+    photoout = () => {
+        if (this.state.statusdetect)
+            this.photograph.stopRecording(); /*Stoping record detect*/
     };
 
     render() {
