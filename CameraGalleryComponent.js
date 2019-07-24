@@ -11,13 +11,13 @@ export default class CameraGallery extends React.Component {
     photograph = null;
 
     state = {
-        imgmap: [],
-        statusdetect: null,
-        phototype: Camera.Constants.Type.back,
-        cameraperm: null,
+        imgmap: [], /*image tab*/
+        statusdetect: null, 
+        phototype: Camera.Constants.Type.back,/*Face or Back */
+        cameraperm: null, /*Perm status */
     };
     setCameraType = (phototype) => this.setState({ phototype }); /*modifing phototype state*/
-    photoin = () => this.setState({ statusdetect: true });/*modifing imgmaptatus state*/
+    photoin = () => this.setState({ statusdetect: true });/*modifing imgmap tatus state*/
 
     photoout = () => {
         if (this.state.statusdetect)
@@ -35,8 +35,8 @@ export default class CameraGallery extends React.Component {
     };
 
     async componentDidMount() {
-        const photograph = await Permissions.askAsync(Permissions.CAMERA);
-        const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+        const photograph = await Permissions.askAsync(Permissions.CAMERA);/*Camera perm*/
+        const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);/*Microphone perm*/
         const cameraperm = (photograph.status === 'granted' && audio.status === 'granted');
 
         this.setState({ cameraperm }); /*Device Camera and Mic permissions*/
@@ -45,10 +45,10 @@ export default class CameraGallery extends React.Component {
     render() {
         const { cameraperm, phototype, statusdetect, imgmap } = this.state;
         /*Permissions Denied error msg*/
-        if (cameraperm === null) {
+        if (cameraperm === null) {/*Perm not accepted */
             return <View />;
-        } else if (cameraperm === false) {
-            return <Text>Access to camera has been denied.</Text>;
+        } else if (cameraperm === false) { /*Perm false */
+            return;
         }
         /*Render APP Functional*/
         return (
@@ -66,11 +66,11 @@ export default class CameraGallery extends React.Component {
 
                 </View>
                 {imgmap.length > 0 && <Gallery imgmap={imgmap}/*Gallery Display*//>}
-                <Toolbar /*Display toolbar*/
+                <Toolbar /*Display toolbar & info call*/
                     statusdetect={statusdetect}
                     phototype={phototype}
                     setCameraType={this.setCameraType}
-                    photo={this.photoin}
+                    photo={this.photoin} 
                     nophoto={this.photoout}
                     video={this.videoin}
                     novideo={this.photoshort}
