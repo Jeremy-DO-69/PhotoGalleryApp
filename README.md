@@ -1,4 +1,4 @@
-# React-Camera-Gallery
+# React-photo-gallery
 
 Install Expo on andoid
 
