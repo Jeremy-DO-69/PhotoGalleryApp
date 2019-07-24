@@ -17,7 +17,7 @@ export default class CameraGallery extends React.Component {
         cameraperm: null, /*Perm status */
     };
     setCameraType = (phototype) => this.setState({ phototype }); /*modifing phototype state*/
-    photoin = () => this.setState({ statusdetect: true });/*modifing imgmap tatus state*/
+    photoin = () => this.setState({ statusdetect: true });/*modifing imgmap status state*/
 
     photoout = () => {
         if (this.state.statusdetect)
