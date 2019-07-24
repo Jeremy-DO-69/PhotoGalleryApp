@@ -10,7 +10,7 @@ const { Type: CameraTypes } = Camera.Constants;
 
 export default ({ 
     statusdetect = false, /* no detect as default butt as default*/
-    phototype = CameraTypes.back,  /* back as default camera*/
+    phototype = CameraTypes.back, setCameraType,  /* back as default camera*/
     photo, nophoto, video, novideo,/*info from ImageGallery fnct */  
 }) => (
     ///COL{1} == CAPTUREBUTTON COL{2} == REVERSEBUTTON
