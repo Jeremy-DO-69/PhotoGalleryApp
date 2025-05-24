@@ -1,6 +1,6 @@
 # React-photo-gallery
 
-Install Expo on andoid
+Install Expo on android
 
 sudo npm start
 
